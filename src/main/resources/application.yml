@@ -1,2 +1,13 @@
 server:
   port: 3820
+
+spring:
+  neo4j:
+    authentication:
+      username: neo4j
+      password: bitnami1
+  docker:
+    compose:
+      lifecycle-management: start_only
+      readiness:
+        timeout: 10s
