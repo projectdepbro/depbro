@@ -16,6 +16,7 @@
 
 package io.github.projectdepbro.controller;
 
+import io.github.projectdepbro.controller.response.GAVResponse;
 import io.github.projectdepbro.domain.GAV;
 import io.github.projectdepbro.finder.GAVFinder;
 import io.github.projectdepbro.registrar.GAVRegistrar;
@@ -102,12 +103,6 @@ public class GAVController {
                         "', artifact='" + artifact +
                         "' and version='" + version +
                         "'"));
-    }
-
-    private record GAVResponse(String group, String artifact, String version) {
-        static GAVResponse of(GAV gav) {
-            return new GAVResponse(gav.group(), gav.artifact(), gav.version());
-        }
     }
 
 }

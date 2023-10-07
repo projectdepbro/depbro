@@ -16,6 +16,7 @@
 
 package io.github.projectdepbro.finder;
 
+import io.github.projectdepbro.domain.GA;
 import io.github.projectdepbro.domain.GAV;
 import io.github.projectdepbro.node.GAVNode;
 import lombok.RequiredArgsConstructor;
@@ -30,38 +31,34 @@ import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
-public class Neo4jGAVFinder implements GAVFinder {
+public class Neo4jGAFinder implements GAFinder {
 
     private final Neo4jTemplate neo4jTemplate;
 
     @Override
-    public Optional<GAV> findGAVById(String gavId) {
-        return neo4jTemplate.findById(gavId, GAVNode.class)
-                .map(node -> GAV.ofId(node.getGavId()));
+    public Optional<GA> findGAById(String gaId) {
+        // language=cypher
+        String query = """
+                MATCH (d:GAV)
+                WHERE d.gavId STARTS WITH $idPrefix
+                RETURN d
+                LIMIT 1
+                """;
+        String idPrefix = gaId + ":";
+        return neo4jTemplate.findOne(query, Map.of("idPrefix", idPrefix), GAVNode.class)
+                .map(node -> GA.ofId(node.getGavId()));
     }
 
     @Override
-    public Set<GAV> findDependentsById(String gavId) {
+    public Set<GAV> findGAVsById(String gaId) {
         // language=cypher
         String query = """
-                MATCH (:GAV{gavId:$gavId})-[:USED_IN]->(d:GAV)
+                MATCH (d:GAV)
+                WHERE d.gavId STARTS WITH $idPrefix
                 RETURN d
                 """;
-        return findGAVes(query, gavId);
-    }
-
-    @Override
-    public Set<GAV> findDependenciesById(String gavId) {
-        // language=cypher
-        String query = """
-                MATCH (:GAV{gavId:$gavId})<-[:USED_IN]-(d:GAV)
-                RETURN d
-                """;
-        return findGAVes(query, gavId);
-    }
-
-    private Set<GAV> findGAVes(String query, String gavId) {
-        List<GAVNode> nodes = neo4jTemplate.findAll(query, Map.of("gavId", gavId), GAVNode.class);
+        String idPrefix = gaId + ":";
+        List<GAVNode> nodes = neo4jTemplate.findAll(query, Map.of("idPrefix", idPrefix), GAVNode.class);
         return nodes.stream()
                 .map(node -> GAV.ofId(node.getGavId()))
                 .collect(Collectors.toSet());
