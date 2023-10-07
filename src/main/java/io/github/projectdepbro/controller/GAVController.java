@@ -18,11 +18,14 @@ package io.github.projectdepbro.controller;
 
 import io.github.projectdepbro.domain.GAV;
 import io.github.projectdepbro.finder.GAVFinder;
+import io.github.projectdepbro.registrar.GAVRegistrar;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
@@ -36,6 +39,7 @@ import java.util.stream.Collectors;
 public class GAVController {
 
     private final GAVFinder finder;
+    private final GAVRegistrar registrar;
 
     @GetMapping
     public ResponseEntity<GAVResponse> getOne(
@@ -44,8 +48,23 @@ public class GAVController {
             @PathVariable String version
     ) {
         GAV gav = getGAV(group, artifact, version);
-        GAVResponse response = getResponse(gav);
+        GAVResponse response = GAVResponse.of(gav);
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping
+    public ResponseEntity<?> createOneWithDependencies(
+            @PathVariable String group,
+            @PathVariable String artifact,
+            @PathVariable String version,
+            @RequestBody Set<String> dependencyIds
+    ) {
+        GAV gav = GAV.of(group, artifact, version);
+        Set<GAV> dependencies = dependencyIds.stream()
+                .map(GAV::ofId)
+                .collect(Collectors.toSet());
+        registrar.registerWithDependencies(gav, dependencies);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/dependents")
@@ -57,7 +76,7 @@ public class GAVController {
         GAV gav = getGAV(group, artifact, version);
         Set<GAV> dependents = finder.findDependents(gav);
         Set<GAVResponse> responses = dependents.stream()
-                .map(this::getResponse)
+                .map(GAVResponse::of)
                 .collect(Collectors.toSet());
         return ResponseEntity.ok(responses);
     }
@@ -71,7 +90,7 @@ public class GAVController {
         GAV gav = getGAV(group, artifact, version);
         Set<GAV> dependencies = finder.findDependencies(gav);
         Set<GAVResponse> responses = dependencies.stream()
-                .map(this::getResponse)
+                .map(GAVResponse::of)
                 .collect(Collectors.toSet());
         return ResponseEntity.ok(responses);
     }
@@ -85,11 +104,10 @@ public class GAVController {
                         "'"));
     }
 
-    private GAVResponse getResponse(GAV gav) {
-        return new GAVResponse(gav.group(), gav.artifact(), gav.version());
-    }
-
     private record GAVResponse(String group, String artifact, String version) {
+        static GAVResponse of(GAV gav) {
+            return new GAVResponse(gav.group(), gav.artifact(), gav.version());
+        }
     }
 
 }
