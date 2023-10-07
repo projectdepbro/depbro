@@ -18,14 +18,23 @@ package io.github.projectdepbro.domain;
 
 public interface GAV {
 
-    String getGroup();
-
-    String getArtifact();
-
-    String getVersion();
-
-    default String getId() {
-        return getGroup() + ":" + getArtifact() + ":" + getVersion();
+    static GAV of(String group, String artifact, String version) {
+        return new GAVersion(group, artifact, version);
     }
+
+    static GAV ofId(String gavId) {
+        String[] parts = gavId.split(":");
+        return new GAVersion(parts[0], parts[1], parts[2]);
+    }
+
+    default String asId() {
+        return group() + ":" + artifact() + ":" + version();
+    }
+
+    String group();
+
+    String artifact();
+
+    String version();
 
 }

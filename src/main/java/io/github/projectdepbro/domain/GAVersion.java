@@ -16,20 +16,6 @@
 
 package io.github.projectdepbro.domain;
 
-import lombok.Builder;
-import lombok.Data;
-
-@Data
-@Builder
-public class GAVersion implements GAV {
-
-    private final String group;
-    private final String artifact;
-    private final String version;
-
-    public static GAVersion ofId(String gavId) {
-        String[] parts = gavId.split(":");
-        return new GAVersion(parts[0], parts[1], parts[2]);
-    }
-
+public record GAVersion(String group, String artifact, String version)
+        implements GAV {
 }
