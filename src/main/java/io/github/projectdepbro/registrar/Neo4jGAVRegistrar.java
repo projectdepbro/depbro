@@ -34,9 +34,9 @@ public class Neo4jGAVRegistrar implements GAVRegistrar {
     @Override
     public void registerWithDependencies(GAV gav, Set<GAV> dependencies) {
         Set<GAVNode> depNodes = dependencies.stream()
-                .map(dep -> nodeBuilder(dep.getId()).build())
+                .map(dep -> nodeBuilder(dep.asId()).build())
                 .collect(Collectors.toSet());
-        GAVNode gavNode = nodeBuilder(gav.getId())
+        GAVNode gavNode = nodeBuilder(gav.asId())
                 .dependencies(depNodes)
                 .build();
         neo4jTemplate.save(gavNode);
