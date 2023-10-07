@@ -1,7 +1,14 @@
 server:
   port: 3820
+  error:
+    include-message: always
+    include-stacktrace: never
+    include-binding-errors: never
+    include-exception: false
 
 spring:
+  application:
+    name: depbro
   neo4j:
     authentication:
       username: neo4j
