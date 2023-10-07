@@ -18,12 +18,28 @@ package io.github.projectdepbro.finder;
 
 import io.github.projectdepbro.domain.GAV;
 
+import java.util.Optional;
 import java.util.Set;
 
 public interface GAVFinder {
 
-    Set<GAV> findUsage(String gavId);
+    Optional<GAV> findGAVById(String gavId);
 
-    Set<GAV> findDependencies(String gavId);
+    default Optional<GAV> findGAV(String group, String artifact, String version) {
+        GAV gav = GAV.of(group, artifact, version);
+        return findGAVById(gav.asId());
+    }
+
+    Set<GAV> findDependentsById(String gavId);
+
+    default Set<GAV> findDependents(GAV gav) {
+        return findDependentsById(gav.asId());
+    }
+
+    Set<GAV> findDependenciesById(String gavId);
+
+    default Set<GAV> findDependencies(GAV gav) {
+        return findDependenciesById(gav.asId());
+    }
 
 }
