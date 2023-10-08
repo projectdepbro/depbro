@@ -39,9 +39,9 @@ public class DepRegistrationController {
             @PathVariable String group,
             @PathVariable String artifact,
             @PathVariable String version,
-            @RequestBody Set<String> dependencies
+            @RequestBody Set<String> dependencyIds
     ) {
-        service.register(group, artifact, version, dependencies);
+        service.register(group, artifact, version, dependencyIds);
         return ResponseEntity.ok().build();
     }
 

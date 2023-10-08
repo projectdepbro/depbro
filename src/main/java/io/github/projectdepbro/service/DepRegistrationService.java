@@ -20,6 +20,6 @@ import java.util.Set;
 
 public interface DepRegistrationService {
 
-    void register(String group, String artifact, String version, Set<String> dependencies);
+    void register(String group, String artifact, String version, Set<String> dependencyIds);
 
 }

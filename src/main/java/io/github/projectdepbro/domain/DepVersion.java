@@ -17,4 +17,10 @@
 package io.github.projectdepbro.domain;
 
 public record DepVersion(String group, String artifact, String version) {
+
+    public static DepVersion ofId(String gavId) {
+        String[] parts = gavId.split(":");
+        return new DepVersion(parts[0], parts[1], parts[2]);
+    }
+
 }
