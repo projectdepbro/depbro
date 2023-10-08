@@ -1,31 +1,52 @@
-###
+### Register application:1.0
 POST http://localhost:3820/api/gavs/com.example/application/1.0
 Content-Type: application/json
 
 [
-  "com.example:application:1.0",
   "com.example:clients:1.0",
   "com.example:dtos:1.0",
-  "com.example:utils:0.1"
+  "com.example:utils:1.0"
 ]
 
-###
+### Register application:2.0
+POST http://localhost:3820/api/gavs/com.example/application/2.0
+Content-Type: application/json
+
+[
+  "com.example:clients:2.0",
+  "com.example:dtos:2.0",
+  "com.example:utils:1.0"
+]
+
+### Register clients:1.0
 POST http://localhost:3820/api/gavs/com.example/clients/1.0
 Content-Type: application/json
 
 [
   "com.example:dtos:1.0",
-  "com.example:utils:0.1"
+  "com.example:utils:1.0"
 ]
 
-###
-GET http://localhost:3820/api/gavs/com.example/application/1.0
+### Register clients:2.0
+POST http://localhost:3820/api/gavs/com.example/clients/2.0
+Content-Type: application/json
 
-###
+[
+  "com.example:dtos:2.0",
+  "com.example:utils:1.0"
+]
+
+### Get deps of application:1.0
 GET http://localhost:3820/api/gavs/com.example/application/1.0/dependencies
 
-###
-GET http://localhost:3820/api/gavs/com.example/utils/0.1
+### Get deps of application:2.0
+GET http://localhost:3820/api/gavs/com.example/application/2.0/dependencies
 
-###
-GET http://localhost:3820/api/gavs/com.example/utils/0.1/dependents
+### Get usage of utils:1.0
+GET http://localhost:3820/api/gavs/com.example/utils/1.0/dependents
+
+### Get versions of application
+GET http://localhost:3820/api/gavs/com.example/application/versions
+
+### Get artifacts of com.example
+GET http://localhost:3820/api/gavs/com.example/artifacts
