@@ -14,18 +14,33 @@
  * limitations under the License.
  */
 
-package io.github.projectdepbro.service;
+package io.github.projectdepbro.finder;
 
+import io.github.projectdepbro.repository.DepGroupNodeRepository;
 import io.github.projectdepbro.domain.DepGroup;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
-public interface DepGroupService {
+@Component
+@RequiredArgsConstructor
+public class Neo4jDepGroupFinder implements DepGroupFinder {
 
-    Optional<DepGroup> findOne(String group);
+    private final DepGroupNodeRepository repository;
 
-    Page<DepGroup> findPage(Pageable pageable);
+    @Override
+    public Optional<DepGroup> findById(String groupId) {
+        return repository.findById(groupId)
+                .map(node -> new DepGroup(node.getGroup()));
+    }
+
+    @Override
+    public Page<DepGroup> findPage(Pageable pageable) {
+        return repository.findAll(pageable)
+                .map(node -> new DepGroup(node.getGroup()));
+    }
 
 }

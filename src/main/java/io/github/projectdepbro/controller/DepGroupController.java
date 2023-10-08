@@ -39,10 +39,9 @@ public class DepGroupController {
     public ResponseEntity<Page<DepGroupResponse>> getAll(
             @PageableDefault Pageable pageable
     ) {
-        return service.findPage(pageable)
-                .map(page -> page.map(DepGroupResponse::of))
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        Page<DepGroupResponse> response = service.findPage(pageable)
+                .map(DepGroupResponse::of);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{group}")

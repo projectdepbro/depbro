@@ -14,18 +14,10 @@
  * limitations under the License.
  */
 
-package io.github.projectdepbro.service;
+package io.github.projectdepbro.repository;
 
-import io.github.projectdepbro.domain.DepGroup;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import io.github.projectdepbro.node.DepGroupNode;
+import org.springframework.data.neo4j.repository.Neo4jRepository;
 
-import java.util.Optional;
-
-public interface DepGroupService {
-
-    Optional<DepGroup> findOne(String group);
-
-    Page<DepGroup> findPage(Pageable pageable);
-
+public interface DepGroupNodeRepository extends Neo4jRepository<DepGroupNode, String> {
 }

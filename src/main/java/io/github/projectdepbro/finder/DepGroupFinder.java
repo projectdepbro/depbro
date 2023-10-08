@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.github.projectdepbro.service;
+package io.github.projectdepbro.finder;
 
 import io.github.projectdepbro.domain.DepGroup;
 import org.springframework.data.domain.Page;
@@ -22,9 +22,9 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.Optional;
 
-public interface DepGroupService {
+public interface DepGroupFinder {
 
-    Optional<DepGroup> findOne(String group);
+    Optional<DepGroup> findById(String groupId);
 
     Page<DepGroup> findPage(Pageable pageable);
 

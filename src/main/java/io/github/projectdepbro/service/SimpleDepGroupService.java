@@ -17,15 +17,28 @@
 package io.github.projectdepbro.service;
 
 import io.github.projectdepbro.domain.DepGroup;
+import io.github.projectdepbro.finder.DepGroupFinder;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-public interface DepGroupService {
+@Service
+@RequiredArgsConstructor
+public class SimpleDepGroupService implements DepGroupService {
 
-    Optional<DepGroup> findOne(String group);
+    private final DepGroupFinder finder;
 
-    Page<DepGroup> findPage(Pageable pageable);
+    @Override
+    public Optional<DepGroup> findOne(String group) {
+        return finder.findById(group);
+    }
+
+    @Override
+    public Page<DepGroup> findPage(Pageable pageable) {
+        return finder.findPage(pageable);
+    }
 
 }

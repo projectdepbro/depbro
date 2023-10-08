@@ -14,18 +14,29 @@
  * limitations under the License.
  */
 
-package io.github.projectdepbro.service;
+package io.github.projectdepbro.node;
 
-import io.github.projectdepbro.domain.DepGroup;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import org.springframework.data.neo4j.core.schema.Id;
+import org.springframework.data.neo4j.core.schema.Node;
 
-import java.util.Optional;
+@Node("DepGroup")
+@Getter
+@Setter
+@Builder
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
+public class DepGroupNode {
 
-public interface DepGroupService {
+    @Id
+    private String groupId;
 
-    Optional<DepGroup> findOne(String group);
-
-    Page<DepGroup> findPage(Pageable pageable);
+    private String group;
 
 }
