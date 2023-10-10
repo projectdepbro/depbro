@@ -28,7 +28,7 @@ import org.springframework.data.neo4j.core.schema.Relationship;
 
 import java.util.Set;
 
-@Node("DepArtifact")
+@Node("DepVersion")
 @Getter
 @Setter
 @Builder
@@ -40,7 +40,7 @@ public class DepVersionNode {
     @Id
     private String versionId;
 
-    private String version;
+    private String name;
 
     @Relationship(type = "EXISTS_OF", direction = Relationship.Direction.OUTGOING)
     private DepArtifactNode artifact;

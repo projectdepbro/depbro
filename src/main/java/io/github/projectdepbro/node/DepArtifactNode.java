@@ -38,7 +38,7 @@ public class DepArtifactNode {
     @Id
     private String artifactId;
 
-    private String artifact;
+    private String name;
 
     @Relationship(type = "INCLUDED_IN", direction = Relationship.Direction.OUTGOING)
     private DepGroupNode group;

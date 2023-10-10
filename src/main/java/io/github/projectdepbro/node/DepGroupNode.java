@@ -37,6 +37,6 @@ public class DepGroupNode {
     @Id
     private String groupId;
 
-    private String group;
+    private String name;
 
 }
