@@ -15,6 +15,6 @@
  */
 
 @NonNullApi
-package io.github.projectdepbro;
+package io.github.projectdepbro.service;
 
 import org.springframework.lang.NonNullApi;
