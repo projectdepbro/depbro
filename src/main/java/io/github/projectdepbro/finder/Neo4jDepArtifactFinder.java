@@ -16,9 +16,10 @@
 
 package io.github.projectdepbro.finder;
 
-import io.github.projectdepbro.domain.DepGroup;
+import io.github.projectdepbro.domain.DepArtifact;
+import io.github.projectdepbro.node.DepArtifactNode;
 import io.github.projectdepbro.node.DepGroupNode;
-import io.github.projectdepbro.repository.DepGroupNodeRepository;
+import io.github.projectdepbro.repository.DepArtifactNodeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,29 +29,36 @@ import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
-public class Neo4jDepGroupFinder implements DepGroupFinder {
+public class Neo4jDepArtifactFinder implements DepArtifactFinder {
 
-    private final DepGroupNodeRepository repository;
+    private final DepArtifactNodeRepository repository;
 
     @Override
-    public boolean existsById(String groupId) {
-        return repository.existsById(groupId);
+    public boolean existsByComposeId(String group, String artifact) {
+        String id = asComposeId(group, artifact);
+        return repository.existsById(id);
     }
 
     @Override
-    public Optional<DepGroup> findById(String groupId) {
-        return repository.findById(groupId)
+    public Optional<DepArtifact> findByComposeId(String group, String artifact) {
+        String id = asComposeId(group, artifact);
+        return repository.findById(id)
                 .map(this::mapNodeToDomain);
     }
 
     @Override
-    public Page<DepGroup> findPage(Pageable pageable) {
-        return repository.findAll(pageable)
+    public Page<DepArtifact> findPageByParentComposeId(String group, Pageable pageable) {
+        return repository.findAllByGroup(group, pageable)
                 .map(this::mapNodeToDomain);
     }
 
-    private DepGroup mapNodeToDomain(DepGroupNode node) {
-        return new DepGroup(node.getName());
+    private String asComposeId(String group, String artifact) {
+        return group + ":" + artifact;
+    }
+
+    private DepArtifact mapNodeToDomain(DepArtifactNode artifact) {
+        DepGroupNode group = artifact.getGroup();
+        return new DepArtifact(group.getName(), artifact.getName());
     }
 
 }

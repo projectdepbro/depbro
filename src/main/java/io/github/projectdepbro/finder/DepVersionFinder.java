@@ -16,18 +16,16 @@
 
 package io.github.projectdepbro.finder;
 
-import io.github.projectdepbro.domain.DepGroup;
+import io.github.projectdepbro.domain.DepVersion;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.Optional;
 
-public interface DepGroupFinder {
+public interface DepVersionFinder {
 
-    boolean existsById(String groupId);
+    Optional<DepVersion> findByComposeId(String group, String artifact, String version);
 
-    Optional<DepGroup> findById(String groupId);
-
-    Page<DepGroup> findPage(Pageable pageable);
+    Page<DepVersion> findPageByParentComposeId(String group, String artifact, Pageable pageable);
 
 }
