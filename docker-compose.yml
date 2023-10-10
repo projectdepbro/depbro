@@ -1,3 +1,5 @@
+name: depbro
+
 services:
   neo4j:
     image: bitnami/neo4j:5
