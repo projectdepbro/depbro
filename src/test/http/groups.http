@@ -1,0 +1,5 @@
+### Get groups
+GET http://localhost:3820/api/groups
+
+### Get group
+GET http://localhost:3820/api/groups/com.example

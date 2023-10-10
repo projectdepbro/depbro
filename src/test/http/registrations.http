@@ -1,0 +1,37 @@
+### Register application:1.0
+POST http://localhost:3820/api/registrations/com.example/application/1.0
+Content-Type: application/json
+
+[
+  "com.example:clients:1.0",
+  "com.example:dtos:1.0",
+  "com.example:utils:1.0"
+]
+
+### Register application:2.0
+POST http://localhost:3820/api/registrations/com.example/application/2.0
+Content-Type: application/json
+
+[
+  "com.example:clients:2.0",
+  "com.example:dtos:2.0",
+  "com.example:utils:1.0"
+]
+
+### Register clients:1.0
+POST http://localhost:3820/api/registrations/com.example/clients/1.0
+Content-Type: application/json
+
+[
+  "com.example:dtos:1.0",
+  "com.example:utils:1.0"
+]
+
+### Register clients:2.0
+POST http://localhost:3820/api/registrations/com.example/clients/2.0
+Content-Type: application/json
+
+[
+  "com.example:dtos:2.0",
+  "com.example:utils:1.0"
+]
