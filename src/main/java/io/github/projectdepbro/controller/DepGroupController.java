@@ -16,6 +16,7 @@
 
 package io.github.projectdepbro.controller;
 
+import io.github.projectdepbro.domain.DepGroup;
 import io.github.projectdepbro.payload.DepGroupResponse;
 import io.github.projectdepbro.service.DepGroupService;
 import lombok.RequiredArgsConstructor;
@@ -36,11 +37,11 @@ public class DepGroupController {
     private final DepGroupService service;
 
     @GetMapping
-    public ResponseEntity<Page<DepGroupResponse>> getAll(
+    public ResponseEntity<Page<String>> getAll(
             @PageableDefault Pageable pageable
     ) {
-        Page<DepGroupResponse> response = service.findPage(pageable)
-                .map(DepGroupResponse::of);
+        Page<String> response = service.findPage(pageable)
+                .map(DepGroup::group);
         return ResponseEntity.ok(response);
     }
 

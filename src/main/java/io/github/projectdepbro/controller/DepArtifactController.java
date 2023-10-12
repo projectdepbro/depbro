@@ -16,6 +16,7 @@
 
 package io.github.projectdepbro.controller;
 
+import io.github.projectdepbro.domain.DepArtifact;
 import io.github.projectdepbro.payload.DepArtifactResponse;
 import io.github.projectdepbro.service.DepArtifactService;
 import lombok.RequiredArgsConstructor;
@@ -36,12 +37,12 @@ public class DepArtifactController {
     private final DepArtifactService service;
 
     @GetMapping
-    public ResponseEntity<Page<DepArtifactResponse>> getAll(
+    public ResponseEntity<Page<String>> getAll(
             @PathVariable String group,
             @PageableDefault Pageable pageable
     ) {
         return service.findPage(group, pageable)
-                .map(page -> page.map(DepArtifactResponse::of))
+                .map(page -> page.map(DepArtifact::artifact))
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }

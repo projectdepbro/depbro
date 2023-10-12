@@ -16,6 +16,7 @@
 
 package io.github.projectdepbro.controller;
 
+import io.github.projectdepbro.domain.DepVersion;
 import io.github.projectdepbro.payload.DepVersionResponse;
 import io.github.projectdepbro.service.DepVersionService;
 import lombok.RequiredArgsConstructor;
@@ -36,13 +37,13 @@ public class DepVersionController {
     private final DepVersionService service;
 
     @GetMapping
-    public ResponseEntity<Page<DepVersionResponse>> getAll(
+    public ResponseEntity<Page<String>> getAll(
             @PathVariable String group,
             @PathVariable String artifact,
             @PageableDefault Pageable pageable
     ) {
         return service.findPage(group, artifact, pageable)
-                .map(page -> page.map(DepVersionResponse::of))
+                .map(page -> page.map(DepVersion::version))
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
