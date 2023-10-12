@@ -27,6 +27,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -45,6 +47,16 @@ public class Neo4jDepVersionFinder implements DepVersionFinder {
     public Page<DepVersion> findPageByParentComposeId(String group, String artifact, Pageable pageable) {
         return repository.findAllByGroupAndArtifact(group, artifact, pageable)
                 .map(this::mapNodeToDomain);
+    }
+
+    @Override
+    public Optional<Set<DepVersion>> findDependenciesByComposeId(String group, String artifact, String version) {
+        String id = asComposeId(group, artifact, version);
+        return repository.findById(id)
+                .map(DepVersionNode::getDependencies)
+                .map(deps -> deps.stream()
+                        .map(this::mapNodeToDomain)
+                        .collect(Collectors.toSet()));
     }
 
     private String asComposeId(String groupId, String artifactId, String versionId) {

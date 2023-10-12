@@ -21,11 +21,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.Optional;
+import java.util.Set;
 
 public interface DepVersionFinder {
 
     Optional<DepVersion> findByComposeId(String group, String artifact, String version);
 
     Page<DepVersion> findPageByParentComposeId(String group, String artifact, Pageable pageable);
+
+    Optional<Set<DepVersion>> findDependenciesByComposeId(String group, String artifact, String version);
 
 }

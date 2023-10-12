@@ -29,6 +29,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/groups/{group}/artifacts/{artifact}/versions")
@@ -56,6 +59,20 @@ public class DepVersionController {
     ) {
         return service.findOne(group, artifact, version)
                 .map(DepVersionResponse::of)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/{version}/dependencies")
+    public ResponseEntity<Set<DepVersionResponse>> getDependencies(
+            @PathVariable String group,
+            @PathVariable String artifact,
+            @PathVariable String version
+    ) {
+        return service.findDependencies(group, artifact, version)
+                .map(deps -> deps.stream()
+                        .map(DepVersionResponse::of)
+                        .collect(Collectors.toSet()))
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }

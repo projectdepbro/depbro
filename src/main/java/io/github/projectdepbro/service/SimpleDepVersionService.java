@@ -25,6 +25,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -45,6 +46,11 @@ public class SimpleDepVersionService implements DepVersionService {
             return Optional.of(page);
         }
         return Optional.empty();
+    }
+
+    @Override
+    public Optional<Set<DepVersion>> findDependencies(String group, String artifact, String version) {
+        return versionFinder.findDependenciesByComposeId(group, artifact, version);
     }
 
 }

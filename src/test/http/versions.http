@@ -3,3 +3,6 @@ GET http://localhost:3820/api/groups/com.example/artifacts/application/versions
 
 ### Get version
 GET http://localhost:3820/api/groups/com.example/artifacts/application/versions/1.0
+
+### Get dependencies
+GET http://localhost:3820/api/groups/com.example/artifacts/application/versions/1.0/dependencies
