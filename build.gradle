@@ -12,6 +12,16 @@ java {
     sourceCompatibility = '17'
 }
 
+jar {
+    manifest {
+        attributes(
+                'Implementation-Title': project.name,
+                'Implementation-Version': project.version,
+                'Implementation-Vendor': 'The Project DepBro Authors'
+        )
+    }
+}
+
 configurations {
     compileOnly {
         extendsFrom annotationProcessor
