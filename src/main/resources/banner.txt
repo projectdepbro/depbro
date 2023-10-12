@@ -1,0 +1,26 @@
+
+${AnsiColor.BLUE}                           ${AnsiColor.MAGENTA}@@${AnsiColor.BLUE}@@
+${AnsiColor.BLUE}                    @@@    ${AnsiColor.MAGENTA}@@${AnsiColor.BLUE}@@    ${AnsiColor.MAGENTA}@@@
+${AnsiColor.BLUE}                     @@@          ${AnsiColor.MAGENTA}@@@
+
+${AnsiColor.MAGENTA}        @@@@@@@@@@@@         ${AnsiColor.BLUE}         @@@@@@@@@@@@
+${AnsiColor.MAGENTA}     @@@@@@@@@@@@@@@@  @@@@@ ${AnsiColor.BLUE} @@@@@  @@@@@@@@@@@@@@@@
+${AnsiColor.MAGENTA}   @@@@@@@@@@    @@@@   @@@@ ${AnsiColor.BLUE} @@@@   @@@@    @@@@@@@@@@
+${AnsiColor.MAGENTA}@@@@@@@@@@@@@    @@@@        ${AnsiColor.BLUE}        @@@@    @@@@@@@@@@@@@
+${AnsiColor.MAGENTA}@@@@@@@@@@@@     @@@@  @@@@@ ${AnsiColor.BLUE} @@@@@  @@@@     @@@@@@@@@@@@
+${AnsiColor.MAGENTA}@@@@@@@@@@        @@@   @@@@ ${AnsiColor.BLUE} @@@@   @@@        @@@@@@@@@@
+${AnsiColor.MAGENTA}@@@@@@@      @@              ${AnsiColor.BLUE}              @@      @@@@@@@
+${AnsiColor.MAGENTA}@@@@@    @@@@@@@@  @@@@@@@@@ ${AnsiColor.BLUE} @@@@@@@@@  @@@@@@@@    @@@@@
+${AnsiColor.MAGENTA}@@@@@@@@@@@@@@@@@   @@@@@@@@ ${AnsiColor.BLUE} @@@@@@@@   @@@@@@@@@@@@@@@@@
+${AnsiColor.MAGENTA}@@@@@@@@@@@@@@@@@            ${AnsiColor.BLUE}            @@@@@@@@@@@@@@@@@
+${AnsiColor.MAGENTA}   @@@@@@@@@@@@@@  @@@@@@@@@ ${AnsiColor.BLUE} @@@@@@@@@  @@@@@@@@@@@@@@
+${AnsiColor.MAGENTA}        @@@@@@@@@   @@@@@@@@ ${AnsiColor.BLUE} @@@@@@@@   @@@@@@@@@
+
+${AnsiColor.MAGENTA}@@@@@@@   @@@@@@@@  @@@@@@@  ${AnsiColor.BLUE} @@@@@@@   @@@@@@@    @@@@@@
+${AnsiColor.MAGENTA}@@!  @@@  @@!       @@!  @@@ ${AnsiColor.BLUE} @@!  @@@  @@!  @@@  @@!  @@@
+${AnsiColor.MAGENTA}@!@  !@!  @!!!:!    @!@@!@!  ${AnsiColor.BLUE} @!@!@!@   @!@!!@!   @!@  !@!
+${AnsiColor.MAGENTA}!!:  !!!  !!:       !!:      ${AnsiColor.BLUE} !!:  !!!  !!: :!!   !!:  !!!
+${AnsiColor.MAGENTA}:: :  :   : :: :::   :       ${AnsiColor.BLUE} :: : ::    :   : :   : :. :
+
+${AnsiColor.BRIGHT_MAGENTA}DepBro${AnsiColor.DEFAULT} v${application.version}
+Powered by ${AnsiColor.BRIGHT_GREEN}Spring Boot${AnsiColor.DEFAULT} v${spring-boot.version}
