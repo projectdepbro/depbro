@@ -16,9 +16,11 @@
 
 package io.github.projectdepbro.service;
 
+import io.github.projectdepbro.domain.DepRegistration;
 import io.github.projectdepbro.domain.DepVersion;
 import io.github.projectdepbro.finder.DepArtifactFinder;
 import io.github.projectdepbro.finder.DepVersionFinder;
+import io.github.projectdepbro.registrar.DepRegistrar;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,13 +28,26 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class SimpleDepVersionService implements DepVersionService {
 
+    private final DepRegistrar registrar;
+
     private final DepArtifactFinder artifactFinder;
     private final DepVersionFinder versionFinder;
+
+    @Override
+    public void register(String group, String artifact, String version, Set<String> dependencyIds) {
+        DepVersion project = new DepVersion(group, artifact, version);
+        Set<DepVersion> dependencies = dependencyIds.stream()
+                .map(DepVersion::ofId)
+                .collect(Collectors.toSet());
+        DepRegistration registration = new DepRegistration(project, dependencies);
+        registrar.register(registration);
+    }
 
     @Override
     public Optional<DepVersion> findOne(String group, String artifact, String version) {

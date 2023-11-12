@@ -26,6 +26,8 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,6 +40,17 @@ import java.util.stream.Collectors;
 public class DepVersionController {
 
     private final DepVersionService service;
+
+    @PostMapping("/{version}")
+    public ResponseEntity<?> createOneWithDependencies(
+            @PathVariable String group,
+            @PathVariable String artifact,
+            @PathVariable String version,
+            @RequestBody Set<String> dependencyIds
+    ) {
+        service.register(group, artifact, version, dependencyIds);
+        return ResponseEntity.ok().build();
+    }
 
     @GetMapping
     public ResponseEntity<Page<String>> getAll(

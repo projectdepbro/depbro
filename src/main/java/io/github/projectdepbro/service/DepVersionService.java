@@ -25,6 +25,8 @@ import java.util.Set;
 
 public interface DepVersionService {
 
+    void register(String group, String artifact, String version, Set<String> dependencyIds);
+
     Optional<DepVersion> findOne(String group, String artifact, String version);
 
     Optional<Page<DepVersion>> findPage(String group, String artifact, Pageable pageable);

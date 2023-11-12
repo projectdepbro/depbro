@@ -1,8 +1,46 @@
-### Get versions
+### Create application:1.0
+POST http://localhost:3820/api/groups/com.example/artifacts/application/versions/1.0
+Content-Type: application/json
+
+[
+  "com.example:clients:1.0",
+  "com.example:dtos:1.0",
+  "com.example:utils:1.0"
+]
+
+### Create application:2.0
+POST http://localhost:3820/api/groups/com.example/artifacts/application/versions/2.0
+Content-Type: application/json
+
+[
+  "com.example:clients:2.0",
+  "com.example:dtos:2.0",
+  "com.example:utils:1.0"
+]
+
+### Create clients:1.0
+POST http://localhost:3820/api/groups/com.example/artifacts/clients/versions/1.0
+Content-Type: application/json
+
+[
+  "com.example:dtos:1.0",
+  "com.example:utils:1.0"
+]
+
+### Create clients:2.0
+POST http://localhost:3820/api/groups/com.example/artifacts/clients/versions/2.0
+Content-Type: application/json
+
+[
+  "com.example:dtos:2.0",
+  "com.example:utils:1.0"
+]
+
+### Get application versions
 GET http://localhost:3820/api/groups/com.example/artifacts/application/versions
 
-### Get version
+### Get application:1.0
 GET http://localhost:3820/api/groups/com.example/artifacts/application/versions/1.0
 
-### Get dependencies
+### Get application:1.0 dependencies
 GET http://localhost:3820/api/groups/com.example/artifacts/application/versions/1.0/dependencies
