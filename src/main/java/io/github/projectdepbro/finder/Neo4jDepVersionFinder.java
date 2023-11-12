@@ -59,6 +59,18 @@ public class Neo4jDepVersionFinder implements DepVersionFinder {
                         .collect(Collectors.toSet()));
     }
 
+    @Override
+    public Optional<Set<DepVersion>> findUsagesByComposeId(String group, String artifact, String version) {
+        String id = asComposeId(group, artifact, version);
+        if (!repository.existsById(id)) {
+            return Optional.empty();
+        }
+        Set<DepVersion> usages = repository.findUsagesById(id).stream()
+                .map(this::mapNodeToDomain)
+                .collect(Collectors.toSet());
+        return Optional.of(usages);
+    }
+
     private String asComposeId(String groupId, String artifactId, String versionId) {
         return groupId + ":" + artifactId + ":" + versionId;
     }

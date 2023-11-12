@@ -44,3 +44,6 @@ GET http://localhost:3820/api/groups/com.example/artifacts/application/versions/
 
 ### Get application:1.0 dependencies
 GET http://localhost:3820/api/groups/com.example/artifacts/application/versions/1.0/dependencies
+
+### Get utils:1.0 usages
+GET http://localhost:3820/api/groups/com.example/artifacts/utils/versions/1.0/usages

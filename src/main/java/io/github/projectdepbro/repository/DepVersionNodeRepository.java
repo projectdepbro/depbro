@@ -22,6 +22,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.data.neo4j.repository.query.Query;
 
+import java.util.Set;
+
 public interface DepVersionNodeRepository extends Neo4jRepository<DepVersionNode, String> {
 
     // language=cypher
@@ -41,5 +43,15 @@ public interface DepVersionNodeRepository extends Neo4jRepository<DepVersionNode
                     """
     )
     Page<DepVersionNode> findAllByGroupAndArtifact(String group, String artifact, Pageable pageable);
+
+    // language=cypher
+    @Query(
+            value = """
+                    MATCH (d:DepVersion)-[:USED_IN]->(v:DepVersion)-[va:EXISTS_OF]->(a:DepArtifact)-[ag:INCLUDED_IN]->(g:DepGroup)
+                    WHERE d.versionId = $versionId
+                    RETURN v, va, a, ag, g
+                    """
+    )
+    Set<DepVersionNode> findUsagesById(String versionId);
 
 }

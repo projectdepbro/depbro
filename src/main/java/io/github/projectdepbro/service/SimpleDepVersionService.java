@@ -68,4 +68,9 @@ public class SimpleDepVersionService implements DepVersionService {
         return versionFinder.findDependenciesByComposeId(group, artifact, version);
     }
 
+    @Override
+    public Optional<Set<DepVersion>> findUsages(String group, String artifact, String version) {
+        return versionFinder.findUsagesByComposeId(group, artifact, version);
+    }
+
 }

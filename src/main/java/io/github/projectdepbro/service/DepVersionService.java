@@ -33,4 +33,6 @@ public interface DepVersionService {
 
     Optional<Set<DepVersion>> findDependencies(String group, String artifact, String version);
 
+    Optional<Set<DepVersion>> findUsages(String group, String artifact, String version);
+
 }

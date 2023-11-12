@@ -90,4 +90,18 @@ public class DepVersionController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/{version}/usages")
+    public ResponseEntity<Set<DepVersionResponse>> getUsages(
+            @PathVariable String group,
+            @PathVariable String artifact,
+            @PathVariable String version
+    ) {
+        return service.findUsages(group, artifact, version)
+                .map(deps -> deps.stream()
+                        .map(DepVersionResponse::of)
+                        .collect(Collectors.toSet()))
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
 }

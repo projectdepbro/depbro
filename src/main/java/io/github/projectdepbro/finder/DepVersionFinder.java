@@ -31,4 +31,6 @@ public interface DepVersionFinder {
 
     Optional<Set<DepVersion>> findDependenciesByComposeId(String group, String artifact, String version);
 
+    Optional<Set<DepVersion>> findUsagesByComposeId(String group, String artifact, String version);
+
 }
