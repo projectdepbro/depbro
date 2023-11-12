@@ -30,4 +30,6 @@ public interface DepArtifactFinder {
 
     Page<DepArtifact> findPageByParentComposeId(String group, Pageable pageable);
 
+    Page<DepArtifact> findByQuery(String query, Pageable pageable);
+
 }

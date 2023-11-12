@@ -52,6 +52,13 @@ public class Neo4jDepArtifactFinder implements DepArtifactFinder {
                 .map(this::mapNodeToDomain);
     }
 
+    @Override
+    public Page<DepArtifact> findByQuery(String query, Pageable pageable) {
+        String preparedQuery = query.trim().toLowerCase();
+        return repository.findAllByQuery(preparedQuery, pageable)
+                .map(this::mapNodeToDomain);
+    }
+
     private String asComposeId(String group, String artifact) {
         return group + ":" + artifact;
     }

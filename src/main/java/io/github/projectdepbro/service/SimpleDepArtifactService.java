@@ -47,4 +47,9 @@ public class SimpleDepArtifactService implements DepArtifactService {
         return Optional.empty();
     }
 
+    @Override
+    public Page<DepArtifact> search(String query, Pageable pageable) {
+        return artifactFinder.findByQuery(query, pageable);
+    }
+
 }

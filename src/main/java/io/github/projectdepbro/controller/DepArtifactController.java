@@ -19,24 +19,28 @@ package io.github.projectdepbro.controller;
 import io.github.projectdepbro.domain.DepArtifact;
 import io.github.projectdepbro.payload.DepArtifactResponse;
 import io.github.projectdepbro.service.DepArtifactService;
+import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+@Validated
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/groups/{group}/artifacts")
+@RequestMapping("/api/groups")
 public class DepArtifactController {
 
     private final DepArtifactService service;
 
-    @GetMapping
+    @GetMapping("/{group}/artifacts")
     public ResponseEntity<Page<String>> getAll(
             @PathVariable String group,
             @PageableDefault Pageable pageable
@@ -47,7 +51,7 @@ public class DepArtifactController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/{artifact}")
+    @GetMapping("/{group}/artifacts/{artifact}")
     public ResponseEntity<DepArtifactResponse> getOne(
             @PathVariable String group,
             @PathVariable String artifact
@@ -56,6 +60,16 @@ public class DepArtifactController {
                 .map(DepArtifactResponse::of)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/artifacts")
+    public ResponseEntity<Page<DepArtifactResponse>> search(
+            @RequestParam @NotBlank(message = "Query must not be blank") String query,
+            @PageableDefault Pageable pageable
+    ) {
+        Page<DepArtifactResponse> page = service.search(query, pageable)
+                .map(DepArtifactResponse::of);
+        return ResponseEntity.ok(page);
     }
 
 }

@@ -3,3 +3,6 @@ GET http://localhost:3820/api/groups/com.example/artifacts
 
 ### Get artifact
 GET http://localhost:3820/api/groups/com.example/artifacts/application
+
+### Search artifacts
+GET http://localhost:3820/api/groups/artifacts?query=exam

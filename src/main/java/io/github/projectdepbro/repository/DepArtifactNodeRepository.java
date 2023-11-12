@@ -42,4 +42,22 @@ public interface DepArtifactNodeRepository extends Neo4jRepository<DepArtifactNo
     )
     Page<DepArtifactNode> findAllByGroup(String group, Pageable pageable);
 
+    // language=cypher
+    @Query(
+            value = """
+                    MATCH (a:DepArtifact)-[ag:INCLUDED_IN]->(g:DepGroup)
+                    WHERE g.name CONTAINS $query OR a.name CONTAINS $query
+                    RETURN a, ag, g
+                    ORDER BY g.name ASC, a.name ASC
+                    SKIP $skip
+                    LIMIT $limit
+                    """,
+            countQuery = """
+                    MATCH (a:DepArtifact)-[ag:INCLUDED_IN]->(g:DepGroup)
+                    WHERE g.name CONTAINS $query OR a.name CONTAINS $query
+                    RETURN count(a)
+                    """
+    )
+    Page<DepArtifactNode> findAllByQuery(String query, Pageable pageable);
+
 }

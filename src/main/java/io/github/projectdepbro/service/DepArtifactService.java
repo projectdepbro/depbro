@@ -28,4 +28,6 @@ public interface DepArtifactService {
 
     Optional<Page<DepArtifact>> findPage(String group, Pageable pageable);
 
+    Page<DepArtifact> search(String query, Pageable pageable);
+
 }
