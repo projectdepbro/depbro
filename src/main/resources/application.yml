@@ -6,6 +6,12 @@ server:
     include-binding-errors: never
     include-exception: false
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
 spring:
   application:
     name: depbro
