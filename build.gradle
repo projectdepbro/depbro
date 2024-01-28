@@ -60,4 +60,9 @@ test {
 bootBuildImage {
     def registry = System.getenv('IMAGE_REGISTRY')
     imageName = "${registry}/projectdepbro/${project.name}:${project.version}"
+    docker {
+        publishRegistry {
+            token = System.getenv('IMAGE_REGISTRY_TOKEN')
+        }
+    }
 }

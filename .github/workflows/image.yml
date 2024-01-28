@@ -28,3 +28,4 @@ jobs:
         run: ./gradlew bootBuildImage --publishImage
         env:
           IMAGE_REGISTRY: ghcr.io
+          IMAGE_REGISTRY_TOKEN: ${{ secrets.GITHUB_TOKEN }}
