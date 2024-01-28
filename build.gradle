@@ -56,3 +56,8 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+bootBuildImage {
+    def registry = System.getenv('IMAGE_REGISTRY')
+    imageName = "${registry}/projectdepbro/${project.name}:${project.version}"
+}
