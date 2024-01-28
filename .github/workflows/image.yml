@@ -25,6 +25,6 @@ jobs:
         uses: gradle/actions/setup-gradle@v3
 
       - name: Image
-        run: ./gradlew bootBuildImage
+        run: ./gradlew bootBuildImage --publishImage
         env:
           IMAGE_REGISTRY: ghcr.io
