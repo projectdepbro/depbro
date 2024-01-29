@@ -32,7 +32,10 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Image
-        run: ./gradlew bootBuildImage --publishImage
+        run: ./gradlew bootBuildImage
         env:
           IMAGE_REGISTRY: ghcr.io
           IMAGE_REGISTRY_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push
+        run: docker push ghcr.io/projectdepbro/depbro:0.1.0-SNAPSHOT
